@@ -4,6 +4,7 @@ import Notiflix, { Notify } from 'notiflix';
 const refs = {
   form: document.querySelector('.search-form'),
   div: document.querySelector('.gallery'),
+  loadMoreBtn: document.querySelector('.load-more'),
 };
 
 export async function searchServise(data, page = 1) {
@@ -18,6 +19,7 @@ export async function searchServise(data, page = 1) {
       Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
       );
+      refs.loadMoreBtn.classList.add('hidden');
       return;
     }
     return response.data;
