@@ -8,6 +8,9 @@ const refs = {
 };
 
 export async function searchServise(data, page = 1) {
+  if (data.trim() === '') {
+    return;
+  }
   const baseUrl = 'https://pixabay.com/api/';
   const key = '39874664-ed75082f01d8e06abe2f74d77';
   const url = `${baseUrl}?key=${key}&q=${data}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=${page}`;
