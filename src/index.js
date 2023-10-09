@@ -12,6 +12,13 @@ const refs = {
 };
 const input = refs.form.elements.searchQuery;
 const button = refs.form.elements[1];
+
+let gallery = new SimpleLightbox('.gallery .photo-card a', {
+  captionsData: 'alt',
+  captionPosition: 'bottom',
+  captionDelay: 250,
+});
+
 refs.form.addEventListener('submit', onSearch);
 
 function onSearch(evt) {
@@ -23,11 +30,7 @@ function onSearch(evt) {
       refs.div.innerHTML = createMarkup(resp.hits);
       refs.loadMoreBtn.classList.remove('hidden');
       Notify.success(`Hooray! We found ${resp.totalHits} images.`);
-      let gallery = new SimpleLightbox('.gallery .photo-card a', {
-        captionsData: 'alt',
-        captionPosition: 'bottom',
-        captionDelay: 250,
-      });
+      gallery.refresh();
     })
     .catch(err => console.log(err))
     .finally((button.disabled = false));
@@ -77,11 +80,6 @@ function onLoadMore(evt) {
   searchServise(input.value, page)
     .then(resp => {
       refs.div.insertAdjacentHTML('beforeend', createMarkup(resp.hits));
-      let gallery = new SimpleLightbox('.gallery .photo-card a', {
-        captionsData: 'alt',
-        captionPosition: 'bottom',
-        captionDelay: 250,
-      });
       gallery.refresh();
       if (page > 12) {
         refs.loadMoreBtn.classList.add('hidden');
