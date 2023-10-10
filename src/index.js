@@ -20,12 +20,14 @@ let gallery = new SimpleLightbox('.gallery .photo-card a', {
 });
 
 refs.form.addEventListener('submit', onSearch);
-
+let page = 1;
 function onSearch(evt) {
   evt.preventDefault();
   button.disabled = true;
 
-  searchServise(input.value)
+  page = 1;
+
+  searchServise(input.value, page)
     .then(resp => {
       refs.div.innerHTML = createMarkup(resp.hits);
       refs.loadMoreBtn.classList.remove('hidden');
@@ -69,7 +71,6 @@ function createMarkup(arr) {
     )
     .join('');
 }
-let page = 1;
 
 refs.loadMoreBtn.addEventListener('click', onLoadMore);
 

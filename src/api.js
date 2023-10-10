@@ -7,7 +7,7 @@ const refs = {
   loadMoreBtn: document.querySelector('.load-more'),
 };
 
-export async function searchServise(data, page = 1) {
+export async function searchServise(data, page) {
   if (data.trim() === '') {
     return;
   }
